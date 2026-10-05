@@ -1,0 +1,39 @@
+name: Deploy Flutter Web to GitHub Pages
+
+# Este script será ativado sempre que você fizer um 'push' na branch 'main'
+on:
+  push:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Configurar o Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Instalar dependências
+        run: flutter pub get
+
+      - name: Compilar para a Web
+        # ATENÇÃO AQUI: Substitua "CuraOS" pelo nome exato do seu repositório no GitHub, mantendo as barras (/).
+        # Exemplo: Se o link do seu repo for github.com/Luiz/meu-site, coloque "/meu-site/".
+        # Se você tiver um domínio customizado (ex: www.meusite.com), remova a tag --base-href e deixe apenas `flutter build web`.
+        run: flutter build web --base-href "/CuraOS/"
+
+      - name: Publicar no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
