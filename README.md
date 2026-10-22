@@ -1,17 +1,36 @@
-# curaos
+# CuraOS
 
-A new Flutter project.
+Plataforma web para gerenciamento de clínicas e consultórios da área da saúde.
 
-## Getting Started
+## 🎯 Objetivo
 
-This project is a starting point for a Flutter application.
+O CuraOS tem como objetivo centralizar e simplificar a gestão de clínicas, reunindo funcionalidades de gerenciamento de pacientes, prontuários eletrônicos, agendamentos e rotinas administrativas em uma única plataforma.
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠️ Tecnologias
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- **Flutter:** desenvolvimento da interface web.
+- **Supabase:** backend, banco de dados e autenticação.
+- **APIs externas:** integrações planejadas com WhatsApp, Google Calendar, Google Meet e ViaCEP.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📋 Funcionalidades planejadas
+
+- Cadastro e gerenciamento de pacientes e profissionais.
+- Prontuários eletrônicos e histórico de atendimentos.
+- Agendamento e gerenciamento de consultas.
+- Controle de acesso por usuários e permissões.
+- Formulários personalizados.
+- Templates de documentos.
+- Integrações com serviços externos.
+- Planos de assinatura com diferentes funcionalidades.
+
+## 🚧 Status do projeto
+
+**Em desenvolvimento.**
+
+O CuraOS está em fase inicial de planejamento e implementação. As funcionalidades descritas representam os objetivos planejados e poderão ser ajustadas ao longo do desenvolvimento.
+
+## 🚀 Visão futura
+
+Construir uma plataforma SaaS escalável para gestão de clínicas, com suporte a múltiplas empresas e possibilidade de expansão para dispositivos móveis.
+
+---
