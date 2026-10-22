@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -41,13 +42,13 @@ class ForgotPasswordModel extends Notifier<ForgotPasswordState> {
       );
       state = state.copyWith(isLoading: false, isSuccess: true);
     } on AuthException catch (e) {
-      print('AuthException no resetPasswordForEmail: \${e.message}');
+      debugPrint('AuthException no resetPasswordForEmail: ${e.message}');
       state = state.copyWith(
         isLoading: false, 
         errorMessage: "Insira um e-mail válido ou verifique sua conexão.",
       );
     } catch (e) {
-      print('Exception no resetPasswordForEmail: \$e');
+      debugPrint('Exception no resetPasswordForEmail: $e');
       state = state.copyWith(
         isLoading: false, 
         errorMessage: "Insira um e-mail válido ou verifique sua conexão.",

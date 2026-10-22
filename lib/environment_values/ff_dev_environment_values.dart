@@ -38,9 +38,9 @@ class FFDevEnvironmentValues {
       final data = await json.decode(response);
       _version = data['version'] ?? 'v0.0.0';
       _environment = data['environment'] ?? '';
-      _SupabaseProjectRef = data['SupabaseProjectRef'] ?? '';
-      _SupabaseAPIURL = data['SupabaseAPIURL'] ?? '';
-      _SupabaseAnonKey = data['SupabaseAnonKey'] ?? '';
+      _supabaseProjectRef = data['SupabaseProjectRef'] ?? '';
+      _supabaseApiUrl = data['SupabaseAPIURL'] ?? '';
+      _supabaseAnonKey = data['SupabaseAnonKey'] ?? '';
       _hereApiKey = data['hereApiKey'] ?? '';
     } catch (e) {
       debugPrint('Error loading environment values: $e');
@@ -53,20 +53,26 @@ class FFDevEnvironmentValues {
   String _environment = '';
   String get environment => _environment;
 
-  String _SupabaseProjectRef = '';
-  String get SupabaseProjectRef => _SupabaseProjectRef;
+  String _supabaseProjectRef = '';
+  String get supabaseProjectRef => _supabaseProjectRef;
+  // ignore: non_constant_identifier_names
+  String get SupabaseProjectRef => _supabaseProjectRef;
 
-  String _SupabaseAPIURL = '';
-  String get SupabaseAPIURL => _SupabaseAPIURL;
+  String _supabaseApiUrl = '';
+  String get supabaseApiUrl => _supabaseApiUrl;
+  // ignore: non_constant_identifier_names
+  String get SupabaseAPIURL => _supabaseApiUrl;
 
-  String _SupabaseAnonKey = '';
-  String get SupabaseAnonKey => _SupabaseAnonKey;
+  String _supabaseAnonKey = '';
+  String get supabaseAnonKey => _supabaseAnonKey;
+  // ignore: non_constant_identifier_names
+  String get SupabaseAnonKey => _supabaseAnonKey;
 
   String _hereApiKey = '';
   String get hereApiKey => _hereApiKey;
 
-  String get supabaseFunctionsBaseUrl => '$_SupabaseAPIURL/functions/v1';
+  String get supabaseFunctionsBaseUrl => '$_supabaseApiUrl/functions/v1';
 
   String get supabaseStorageBaseUrl =>
-      '$_SupabaseAPIURL/storage/v1/object/public';
+      '$_supabaseApiUrl/storage/v1/object/public';
 }

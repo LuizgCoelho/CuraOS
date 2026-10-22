@@ -87,7 +87,7 @@ class EmailSentWidget extends StatelessWidget {
                     const SizedBox(height: 40),
                     ElevatedButton(
                       onPressed: () {
-                        context.go('/');
+                        context.go('/login');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF0F172A),

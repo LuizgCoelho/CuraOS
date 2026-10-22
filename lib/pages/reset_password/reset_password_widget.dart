@@ -38,8 +38,8 @@ class _ResetPasswordWidgetState extends ConsumerState<ResetPasswordWidget> {
         );
         // Após redefinir, volta para o dashboard ou login. 
         // Como ele já está logado internamente via OTP, podemos levar pro dashboard.
-        // Mas se a arquitetura exigir re-login, context.go('/');
-        context.go('/');
+        // Mas se a arquitetura exigir re-login, context.go('/login');
+        context.go('/login');
       }
     }
   }

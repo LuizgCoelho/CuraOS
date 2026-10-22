@@ -19,25 +19,22 @@ Future<Map<String, dynamic>> authSupabaseLogin(
     };
   } on AuthException catch (e) {
     final code = e.statusCode; // pode vir null; use e.message tbm
+    final messageLower = e.message.toLowerCase();
     String msgPt;
 
-    switch (code) {
-      case '400':
-        if ((e.message).toLowerCase().contains('invalid login credentials')) {
-          msgPt = 'E-mail ou senha inválidos.';
-        } else if ((e.message).toLowerCase().contains('email not confirmed')) {
-          msgPt = 'Confirme seu e-mail para continuar.';
-        } else if ((e.message).toLowerCase().contains('missing email or phone')) {
-          msgPt = 'Informe e-mail e senha.';
-        } else {
-          msgPt = 'Não foi possível entrar. Verifique os dados e tente novamente.';
-        }
-        break;
-      case '422':
-        msgPt = 'Formato de e-mail inválido.';
-        break;
-      default:
-        msgPt = 'Ocorreu um erro ao entrar. Tente novamente.';
+    if (messageLower.contains('invalid login credentials') ||
+        messageLower.contains('invalid credentials')) {
+      msgPt = 'E-mail ou senha inválidos.';
+    } else if (messageLower.contains('email not confirmed')) {
+      msgPt = 'Confirme seu e-mail para continuar.';
+    } else if (messageLower.contains('missing email or phone')) {
+      msgPt = 'Informe e-mail e senha.';
+    } else if (code == '422' || messageLower.contains('invalid email')) {
+      msgPt = 'Formato de e-mail inválido.';
+    } else if (code == '400') {
+      msgPt = 'Não foi possível entrar. Verifique os dados e tente novamente.';
+    } else {
+      msgPt = 'Ocorreu um erro ao entrar. Tente novamente.';
     }
 
     return {

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -5,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'index.dart'; // Exporta as páginas
-import 'app_state.dart';
 import 'environment_values/ff_dev_environment_values.dart';
 
 void main() async {
@@ -15,8 +15,8 @@ void main() async {
 
   try {
     await Supabase.initialize(
-      url: FFDevEnvironmentValues().SupabaseAPIURL,
-      anonKey: FFDevEnvironmentValues().SupabaseAnonKey,
+      url: FFDevEnvironmentValues().supabaseApiUrl,
+      publishableKey: FFDevEnvironmentValues().supabaseAnonKey,
     );
   } catch (e) {
     debugPrint('Erro ao inicializar o Supabase: $e');
@@ -32,6 +32,10 @@ void main() async {
 final _router = GoRouter(
   initialLocation: '/login',
   routes: [
+    GoRoute(
+      path: '/',
+      redirect: (_, _) => '/login',
+    ),
     GoRoute(
       path: '/login',
       builder: (context, state) => const LoginWidget(),
@@ -70,17 +74,29 @@ class CuraOSApp extends StatefulWidget {
 }
 
 class _CuraOSAppState extends State<CuraOSApp> {
+  StreamSubscription<AuthState>? _authSubscription;
+
   @override
   void initState() {
     super.initState();
-    Supabase.instance.client.auth.onAuthStateChange.listen((data) {
-      final AuthChangeEvent event = data.event;
-      if (event == AuthChangeEvent.passwordRecovery) {
-        // Redireciona para a tela de redefinir senha quando o usuário
-        // clicar no link de recuperação de senha no e-mail
-        _router.go('/reset-password');
-      }
-    });
+    try {
+      _authSubscription = Supabase.instance.client.auth.onAuthStateChange.listen((data) {
+        final AuthChangeEvent event = data.event;
+        if (event == AuthChangeEvent.passwordRecovery) {
+          // Redireciona para a tela de redefinir senha quando o usuário
+          // clicar no link de recuperação de senha no e-mail
+          _router.go('/reset-password');
+        }
+      });
+    } catch (e) {
+      debugPrint('Supabase ainda não inicializado ou listener indisponível: $e');
+    }
+  }
+
+  @override
+  void dispose() {
+    _authSubscription?.cancel();
+    super.dispose();
   }
 
   @override
